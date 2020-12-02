@@ -54,7 +54,7 @@ jobs:
           at: /tmp
       - run:
           name: Deploy app
-          command: echo todo && false
+          command: npx netlify-cli deploy --prod --dir /tmp/server-doc --message "déploiement" --site "0e3c2f9f-5400-4203-9deb-04b416524c66"
   back-test-unit:
     docker:
       - image: circleci/node:dubnium-browsers
@@ -121,55 +121,7 @@ jobs:
       - checkout
       - run:
           name: Heroku Deploy
-          command: echo todo && false
+          command: git push https://heroku:5730951c-f7d5-4cfd-8aea-c0cae3adc0d2@git.heroku.com/whispering-garden-62583.git HEAD:master
       - run:
           name: Smoke Test
-          command: echo todo && false
-
-workflows:
-  version: 2
-  build-test-and-lint:
-    jobs:
-      - build
-      - back-test-unit:
-          requires:
-            - build
-      - back-test-e2e:
-          requires:
-            - build
-      - lint:
-          requires:
-            - build
-      - docker-build-and-push:
-          requires:
-            - build
-            - lint
-            - back-test-e2e
-            - back-test-unit
-          filters:
-            branches:
-              only: main
-      - back-deploy-heroku:
-          requires:
-            - build
-            - lint
-            - back-test-e2e
-            - back-test-unit
-          filters:
-            branches:
-              only: main
-      - server-doc-build:
-          requires:
-            - build
-            - lint
-            - back-test-e2e
-            - back-test-unit
-          filters:
-            branches:
-              only: main
-      - server-doc-deploy:
-          requires:
-            - server-doc-build
-          filters:
-            branches:
-              only: main
+          command: ./testMaster-III-TP-CD.sh
