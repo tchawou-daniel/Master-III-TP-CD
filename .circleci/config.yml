@@ -55,7 +55,7 @@ jobs:
       - run:
           name: Deploy app
           command: |
-            npx netlify-cli deploy --prod --auth=A0KvGFKslxj6YG4Ocxf9ZvvSG7yU00KmqZ1eDxJ09Tk --dir=/tmp/server-doc --site=5ef7c201-b2f5-43c9-b8b6-7495e12e61af
+            npx netlify-cli deploy --prod --auth=$NETLIFY_APP_AUTH --dir=$SERVER_DOC_DIR --site=$SITE_API_ID
   back-test-unit:
     docker:
       - image: circleci/node:dubnium-browsers
@@ -122,7 +122,7 @@ jobs:
       - checkout
       - run:
           name: Heroku Deploy
-          command: git push https://heroku:5730951c-f7d5-4cfd-8aea-c0cae3adc0d2@git.heroku.com/whispering-garden-62583.git HEAD:master
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD:master
       - run:
           name: Smoke Test
           command: ./testMaster-III-TP-CD.sh
