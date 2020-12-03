@@ -54,7 +54,7 @@ jobs:
           at: /tmp
       - run:
           name: Deploy app
-          command: sudo npm install netlify-cli -g && netlify deploy --prod
+          command: sudo npm install netlify-cli -g && netlify deploy --prod --auth 4942a1124577b1e13d46 --dir /tmp/server-doc --site 0e3c2f9f-5400-4203-9deb-04b416524c66
   back-test-unit:
     docker:
       - image: circleci/node:dubnium-browsers
